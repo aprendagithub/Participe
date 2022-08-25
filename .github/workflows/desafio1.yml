@@ -70,6 +70,6 @@ jobs:
 
       - name: Clonando Repositório do Desafio 1
         run: |
-          cp ${{ steps.repodesafio.outputs.rootdirectory }}/* ${{ steps.repodeparticipante.outputs.rootdirectory }}
+          cp -r ${{ steps.repodesafio.outputs.rootdirectory }}/* ${{ steps.repodeparticipante.outputs.rootdirectory }}
           git commit -m "Commit inicial"  
           git push
