@@ -31,3 +31,16 @@ jobs:
       - name: Convidar usuário para organização
         run: |
           curl -X POST -H "Accept: application/vnd.github+json"  -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}"  https://api.github.com/orgs/tempdemo2022/invitations -d '{"email":"${{ steps.participante.outputs.emailparticipante }}","role":"direct_member","team_ids":[12,26]}' > /dev/null
+
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Participante: ${{ steps.participante.outputs.nomeparticipante }} foi convidado para a organização
+
+      - name: Label na Issue
+        uses: andymckay/labeler@master
+        with:
+          add-labels: "Desafio-1"
+          
