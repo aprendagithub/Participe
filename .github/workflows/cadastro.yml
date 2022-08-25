@@ -1,0 +1,23 @@
+name: Create Event
+
+
+on:
+  issues:
+    types: [opened]
+  
+
+  workflow_dispatch:
+
+jobs:
+  
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ISSUE_BODY: "${{ github.event.issue.body }}"
+    if: contains(github.event.issue.title, '[Participante]:')
+    steps:
+
+      - name: Getting issue information
+        id: issue
+        run: |
+          echo "$ISSUE_BODY"
