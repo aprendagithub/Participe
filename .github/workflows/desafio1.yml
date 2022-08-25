@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ISSUE_BODY: "${{ github.event.issue.body }}"
-    if: github.event.label.name == 'Desafio-1'
+    if: github.event.label.name == 'desafio1'
     steps:
 
       - name: Obtendo informações do participante
