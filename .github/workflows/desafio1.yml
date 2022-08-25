@@ -72,6 +72,7 @@ jobs:
         run: |
           cp -r ${{ steps.repodesafio.outputs.rootdirectory }}/* ${{ steps.repodeparticipante.outputs.rootdirectory }}
           cd ${{ steps.repodeparticipante.outputs.rootdirectory }}
+          mkdir .github/
           mkdir .github/CONFIG/
           cd .github/CONFIG
           echo "${{ github.event.issue.number }}" > issue.txt
