@@ -39,6 +39,10 @@ jobs:
         run: |
           curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/repos/tempdemo2022/${{ steps.participante.outputs.idparticipante }}-desafio-1/collaborators/${{ steps.participante.outputs.idparticipante }} -d '{"permission":"admin"}'
 
+      - name: Permissão a secret
+        run: |
+          curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/orgs/tempdemo2022/actions/secrets/ISSUE_SECRET/repositories/${{ steps.participante.outputs.idparticipante }}-desafio-1
+
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
