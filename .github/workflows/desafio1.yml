@@ -35,6 +35,6 @@ jobs:
         run: |
           curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/orgs/tempdemo2022/repos -d '{"name":"${{ steps.participante.outputs.nomeparticipante }}-desafio-1","description":"Repositório para o desafio de primeiros passos com GitHub","private":false,"has_issues":true,"has_projects":true,"has_wiki":true}' > /dev/null
 
-      - name: Criar Repositório Desafio 0
+      - name: Permissão ao repositório do Desafio 0
         run: |
-          curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token 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" https://api.github.com/repos/tempdemo2022/${{ steps.participante.outputs.nomeparticipante }}-desafio-1/collaborators/${{ steps.participante.outputs.idparticipante }} -d '{"permission":"push"}'
+          curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/repos/tempdemo2022/${{ steps.participante.outputs.nomeparticipante }}-desafio-1/collaborators/${{ steps.participante.outputs.idparticipante }} -d '{"permission":"push"}'

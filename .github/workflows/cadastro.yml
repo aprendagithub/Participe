@@ -42,5 +42,5 @@ jobs:
       - name: Label na Issue
         uses: andymckay/labeler@master
         with:
-          add-labels: "Desafio-1"
+          add-labels: "desafio1"
           
