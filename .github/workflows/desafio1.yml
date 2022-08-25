@@ -86,3 +86,10 @@ jobs:
           git add .
           git commit -m "Commit inicial"  
           git push
+
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Repositório Criado: https://github.com/tempdemo2022/${{ steps.participante.outputs.idparticipante }}-desafio-1
