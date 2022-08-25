@@ -69,7 +69,6 @@ jobs:
           echo "::set-output name=rootdirectory::$localpath"
 
       - name: Clonando Repositório do Desafio 1
-        id: repodeparticipante
         run: |
           cp ${{ steps.repodesafio.outputs.rootdirectory }}/* ${{ steps.repodeparticipante.outputs.rootdirectory }}
           git commit -m "Commit inicial"  
