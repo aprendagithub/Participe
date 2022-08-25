@@ -1,0 +1,20 @@
+name: Cadastrar Participante
+description: Cadastro de Participantes
+title: "[Participante]:"
+body:
+  - type: input
+    id: nome
+    attributes:
+      label: Nome do Participante;
+      description: Nome do Participante
+      placeholder: ex. Harry Potter
+    validations:
+      required: true
+  - type: input
+    id: email
+    attributes:
+      label: Email;
+      description: E-mail do participante
+      placeholder: ex. harry.potter@hogwarts.com.uk
+    validations:
+      required: true
