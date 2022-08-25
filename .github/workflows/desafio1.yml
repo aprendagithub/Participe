@@ -1,0 +1,39 @@
+name: Criar Repositório Desafio Inicial
+
+
+on:
+  issues:
+    types: [labeled]
+  
+
+  workflow_dispatch:
+
+jobs:
+  
+  Cadastro:
+    runs-on: ubuntu-latest
+    env:
+      ISSUE_BODY: "${{ github.event.issue.body }}"
+    if: ${{ github.event.label.name == 'Desafio-1' }}
+    steps:
+
+      - name: Obtendo informações do participante
+        id: participante
+        run: |
+          echo "$ISSUE_BODY" > temp.txt
+          nomeparticipante=$(cat temp.txt | sed '3!d')
+          emailparticipante=$(cat temp.txt | sed '7!d')
+          idparticipante=$(cat temp.txt | sed '10!d')
+
+          echo "::set-output name=nomeparticipante::$nomeparticipante"
+          echo "::set-output name=emailparticipante::$emailparticipante"
+          echo "::set-output name=idparticipante::$idparticipante"
+
+
+      - name: Criar Repositório Desafio 0
+        run: |
+          curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/orgs/tempdemo2022/repos -d '{"name":"${{ steps.participante.outputs.nomeparticipante }}-desafio-1","description":"Repositório para o desafio de primeiros passos com GitHub","private":false,"has_issues":true,"has_projects":true,"has_wiki":true}' > /dev/null
+
+      - name: Criar Repositório Desafio 0
+        run: |
+          curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token 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" https://api.github.com/repos/tempdemo2022/${{ steps.participante.outputs.nomeparticipante }}-desafio-1/collaborators/${{ steps.participante.outputs.idparticipante }} -d '{"permission":"push"}'
