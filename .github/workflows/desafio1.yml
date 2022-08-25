@@ -76,6 +76,7 @@ jobs:
       - name: Gerando repositório do Desafio 1 para participante
         run: |
           cp -r ${{ steps.repodesafio.outputs.rootdirectory }}/* ${{ steps.repodeparticipante.outputs.rootdirectory }}
+          cp -r ${{ steps.repodesafio.outputs.rootdirectory }}/.github ${{ steps.repodeparticipante.outputs.rootdirectory }}
           cd ${{ steps.repodeparticipante.outputs.rootdirectory }}
           mkdir .github/
           mkdir .github/CONFIG/
