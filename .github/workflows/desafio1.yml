@@ -3,7 +3,8 @@ name: Criar Repositório Desafio Inicial
 
 on:
   issues:
-    types: [labeled]
+    types:
+      - labeled
   
 
   workflow_dispatch:
@@ -14,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ISSUE_BODY: "${{ github.event.issue.body }}"
-    if: ${{ github.event.label.name == 'Desafio-1' }}
+    if: github.event.label.name == 'Desafio-1'
     steps:
 
       - name: Obtendo informações do participante
