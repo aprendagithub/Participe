@@ -50,7 +50,7 @@ jobs:
         id: repodesafio
         run: |
           git config --global user.name 'Julio Arruda Bot'
-          git config --global user.email 'julio.arruda+bot@outlook.com'
+          git config --global user.email 'julio.arruda@outlook.com'
           git clone git@github.com:tempdemo2022/desafio-1.git
           cd desafio-1
           rm -rf .git          
@@ -61,7 +61,7 @@ jobs:
         id: repodeparticipante
         run: |
           git config --global user.name 'Julio Arruda Bot'
-          git config --global user.email 'julio.arruda+bot@outlook.com'
+          git config --global user.email 'julio.arruda@outlook.com'
           git clone git@github.com:tempdemo2022/${{ steps.participante.outputs.idparticipante }}-desafio-1.git
           
           cd ${{ steps.participante.outputs.idparticipante }}-desafio-1
