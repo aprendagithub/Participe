@@ -38,3 +38,39 @@ jobs:
       - name: Permissão ao repositório do Desafio 0
         run: |
           curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/repos/tempdemo2022/${{ steps.participante.outputs.idparticipante }}-desafio-1/collaborators/${{ steps.participante.outputs.idparticipante }} -d '{"permission":"admin"}'
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_rsa # optional
+          known_hosts: ${{ secrets.KNOW_HOSTS }}
+
+      - name: Clonando Repositório do Desafio 1
+        id: repodesafio
+        run: |
+          git config --global user.name 'Julio Arruda Bot'
+          git config --global user.email 'julio.arruda+bot@outlook.com'
+          git clone git@github.com:tempdemo2022/desafio-1.git
+          rm -rf .git
+          cd desafio-1
+          localpath=$(pwd)
+          echo "::set-output name=rootdirectory::$localpath"
+
+      - name: Clonando Repositório do Desafio 1
+        id: repodeparticipante
+        run: |
+          git config --global user.name 'Julio Arruda Bot'
+          git config --global user.email 'julio.arruda+bot@outlook.com'
+          git clone git@github.com:tempdemo2022/${{ steps.participante.outputs.idparticipante }}-desafio-1.git
+          
+          cd ${{ steps.participante.outputs.idparticipante }}-desafio-1
+          localpath=$(pwd)
+          echo "::set-output name=rootdirectory::$localpath"
+
+      - name: Clonando Repositório do Desafio 1
+        id: repodeparticipante
+        run: |
+          cp ${{ steps.repodesafio.outputs.rootdirectory }}/* ${{ steps.repodeparticipante.outputs.rootdirectory }}
+          git commit -m "Commit inicial"  
+          git push
