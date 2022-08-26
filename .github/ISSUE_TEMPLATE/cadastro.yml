@@ -26,3 +26,13 @@ body:
       placeholder: ex. harrypotter
     validations:
       required: true
+  - type: dropdown
+    id: desafio
+    attributes:
+      label: Para qual desafio está se inscrevendo?
+      multiple: true
+      options:
+        - desafio1
+        - desafio2
+        - desafio3
+        - desafio4

@@ -23,9 +23,11 @@ jobs:
           echo "$ISSUE_BODY" > temp.txt
           nomeparticipante=$(cat temp.txt | sed '3!d')
           emailparticipante=$(cat temp.txt | sed '7!d')
+          labeldesafio=$(cat temp.txt | sed '15!d')
 
           echo "::set-output name=nomeparticipante::$nomeparticipante"
           echo "::set-output name=emailparticipante::$emailparticipante"
+          echo "::set-output name=labeldesafio::$labeldesafio"
 
 
       - name: Convidar usuário para organização
@@ -42,5 +44,5 @@ jobs:
       - name: Label na Issue
         uses: andymckay/labeler@master
         with:
-          add-labels: "desafio1"
+          add-labels: "${{ steps.participante.outputs.labeldesafio }}"
           
