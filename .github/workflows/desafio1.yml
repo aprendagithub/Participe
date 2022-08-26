@@ -81,8 +81,8 @@ jobs:
           mkdir .github/CONFIG/
           cd .github/CONFIG
           echo "id:${{ github.event.issue.number }}" >> issue.txt
-          echo "nome:${{ github.participante.outputs.nomeparticipante }}" >> issue.txt
-          echo "email:${{ github.participante.outputs.emailparticipante }}" >> issue.txt
+          echo "nome:${{ steps.participante.outputs.nomeparticipante }}" >> issue.txt
+          echo "email:${{ steps.participante.outputs.emailparticipante }}" >> issue.txt
           echo "0" > step.txt
           cd ${{ steps.repodeparticipante.outputs.rootdirectory }}
           git add .
