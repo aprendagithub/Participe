@@ -94,4 +94,10 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            Repositório Criado: https://github.com/aprendagithub/${{ steps.participante.outputs.idparticipante }}-desafio-1
+            @${{ steps.participante.outputs.idparticipante }} Repositório Criado: https://github.com/aprendagithub/${{ steps.participante.outputs.idparticipante }}-desafio-1
+
+      - name: Close Issue
+        uses: peter-evans/close-issue@v2
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          comment: Bons Estudos!
