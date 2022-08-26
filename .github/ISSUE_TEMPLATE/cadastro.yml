@@ -30,7 +30,7 @@ body:
     id: desafio
     attributes:
       label: Para qual desafio está se inscrevendo?
-      multiple: true
+      multiple: false
       options:
         - desafio1
         - desafio2
