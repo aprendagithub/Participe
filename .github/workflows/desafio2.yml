@@ -1,0 +1,102 @@
+name: Criar Repositório Desafio Inicial
+
+
+on:
+  issues:
+    types:
+      - labeled
+  
+
+  workflow_dispatch:
+
+jobs:
+  
+  Cadastro:
+    runs-on: ubuntu-latest
+    env:
+      ISSUE_BODY: "${{ github.event.issue.body }}"
+    if: github.event.label.name == 'desafio2'
+    steps:
+
+      - name: Obtendo informações do participante
+        id: participante
+        run: |
+          echo "$ISSUE_BODY" > temp.txt
+          nomeparticipante=$(cat temp.txt | sed '3!d')
+          emailparticipante=$(cat temp.txt | sed '7!d')
+          idparticipante=$(cat temp.txt | sed '11!d')
+
+          echo "::set-output name=nomeparticipante::$nomeparticipante"
+          echo "::set-output name=emailparticipante::$emailparticipante"
+          echo "::set-output name=idparticipante::$idparticipante"
+
+
+      - name: Criar Repositório Desafio 1
+        run: |
+          curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/orgs/aprendagithub/repos -d '{"name":"${{ steps.participante.outputs.idparticipante }}-desafio-2","description":"Repositório para o desafio de primeiros passos com GitHub","private":false,"has_issues":true,"has_projects":true,"has_wiki":true}' > /dev/null
+
+      - name: Permissão ao repositório do Desafio 1
+        run: |
+          curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/repos/aprendagithub/${{ steps.participante.outputs.idparticipante }}-desafio-2/collaborators/${{ steps.participante.outputs.idparticipante }} -d '{"permission":"admin"}'
+
+      - name: Permissão a secret
+        run: |
+          repoid=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/repos/aprendagithub/${{ steps.participante.outputs.idparticipante }}-desafio-2 | jq '.id')
+          curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/orgs/aprendagithub/actions/secrets/ISSUE_SECRET/repositories/$repoid
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_rsa # optional
+          known_hosts: ${{ secrets.KNOW_HOSTS }}
+
+      - name: Clonando Repositório do Desafio 2
+        id: repodesafio
+        run: |
+          git config --global user.name 'Julio Arruda'
+          git config --global user.email 'julio.arruda@outlook.com'
+          git clone git@github.com:aprendagithub/desafio-2.git
+          cd desafio-2
+          rm -rf .git          
+          localpath=$(pwd)
+          echo "::set-output name=rootdirectory::$localpath"
+
+      - name: Clonando Repositório do Desafio 2
+        id: repodeparticipante
+        run: |
+          git config --global user.name 'Julio Arruda'
+          git config --global user.email 'julio.arruda@outlook.com'
+          git clone git@github.com:aprendagithub/${{ steps.participante.outputs.idparticipante }}-desafio-2.git
+          
+          cd ${{ steps.participante.outputs.idparticipante }}-desafio-2
+          localpath=$(pwd)
+          echo "::set-output name=rootdirectory::$localpath"
+
+      - name: Gerando repositório do Desafio 2 para participante
+        run: |
+          cp -r ${{ steps.repodesafio.outputs.rootdirectory }}/* ${{ steps.repodeparticipante.outputs.rootdirectory }}
+          cp -r ${{ steps.repodesafio.outputs.rootdirectory }}/.github ${{ steps.repodeparticipante.outputs.rootdirectory }}
+          cd ${{ steps.repodeparticipante.outputs.rootdirectory }}
+          cd .github/CONFIG
+          echo "id:${{ github.event.issue.number }}" >> issue.txt
+          echo "nome:${{ steps.participante.outputs.nomeparticipante }}" >> issue.txt
+          echo "email:${{ steps.participante.outputs.emailparticipante }}" >> issue.txt
+          echo "0" > step.txt
+          cd ${{ steps.repodeparticipante.outputs.rootdirectory }}
+          git add .
+          git commit -m "Commit inicial"  
+          git push
+
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            @${{ steps.participante.outputs.idparticipante }} Repositório Criado: https://github.com/aprendagithub/${{ steps.participante.outputs.idparticipante }}-desafio-2
+
+      - name: Close Issue
+        uses: peter-evans/close-issue@v2
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          comment: Bons Estudos!
