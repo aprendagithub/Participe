@@ -41,8 +41,8 @@ jobs:
           body: |
             Participante: ${{ steps.participante.outputs.nomeparticipante }} foi convidado para a organização
 
-      - name: Label na Issue
-        uses: andymckay/labeler@master
-        with:
-          add-labels: "${{ steps.participante.outputs.labeldesafio }}"
+     
+      - name: Label
+        run: |
+          curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/repos/aprendagithub/Participe/issues/${{ github.event.issue.number }}/labels -d '{"labels":["${{ steps.participante.outputs.labeldesafio }}"]}'
           
