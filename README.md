@@ -1,3 +1,7 @@
+## PROJETO AINDA EM DESENVOLVIMENTO.. OS DESAFIOS AINDA NÃO FORAM TERMINADOS!!!
+
+
+
 # Desafios para aprender a usar o GitHub
 
 Boas vindas aos Desafios de GitHub! Se você está aqui, provavelmente está buscando aprender um pouco mais sobre oque é o GitHub, e como você pode utilizá-lo em seu dia a dia.
