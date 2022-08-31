@@ -86,7 +86,8 @@ jobs:
           cd ${{ steps.repodeparticipante.outputs.rootdirectory }}
           git add .
           git commit -m "Commit inicial"  
-          git push
+          git checkout -b admin
+          git push --all
 
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v2
