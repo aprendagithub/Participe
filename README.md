@@ -13,7 +13,7 @@ Esses desafios, funcionam em conjunto com os materiais disponibilizados no [Cana
 ## Se você ainda não está participando do desafio, mas gostaria de fazer parte desse desafio, é muito simples, basta seguir os passos:
 
 1. Criar sua conta no GitHub, se ainda não sabe como fazer, pode assistir o seguinte vídeo: [Oque é o GitHub | Guia para Iniciantes](https://youtu.be/Hs8AUYoCItI?t=952)
-2. Abrir uma issue [neste repositório](https://github.com/aprendagithub/Participe), informando seu nome, e-mail e usuário no GitHub
+2. Abrir uma issue [neste repositório](https://github.com/github-mao-na-massa/Participe), informando seu nome, e-mail e usuário no GitHub
 ![image](https://user-images.githubusercontent.com/5204009/186952267-21fa60b8-3041-4f42-bcd7-b85d8e6555df.png)
 ![image](https://user-images.githubusercontent.com/5204009/186952347-d39bda7f-2c3f-4ccd-aa81-c82b3d9d4e46.png)
 

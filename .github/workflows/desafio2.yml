@@ -33,16 +33,16 @@ jobs:
 
       - name: Criar Repositório Desafio 1
         run: |
-          curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/orgs/aprendagithub/repos -d '{"name":"${{ steps.participante.outputs.idparticipante }}-desafio-2","description":"Repositório para o desafio de primeiros passos com GitHub","private":false,"has_issues":true,"has_projects":true,"has_wiki":true}' > /dev/null
+          curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/orgs/github-mao-na-massa/repos -d '{"name":"${{ steps.participante.outputs.idparticipante }}-desafio-2","description":"Repositório para o desafio de primeiros passos com GitHub","private":false,"has_issues":true,"has_projects":true,"has_wiki":true}' > /dev/null
 
       - name: Permissão ao repositório do Desafio 1
         run: |
-          curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/repos/aprendagithub/${{ steps.participante.outputs.idparticipante }}-desafio-2/collaborators/${{ steps.participante.outputs.idparticipante }} -d '{"permission":"admin"}'
+          curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/repos/github-mao-na-massa/${{ steps.participante.outputs.idparticipante }}-desafio-2/collaborators/${{ steps.participante.outputs.idparticipante }} -d '{"permission":"admin"}'
 
       - name: Permissão a secret
         run: |
-          repoid=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/repos/aprendagithub/${{ steps.participante.outputs.idparticipante }}-desafio-2 | jq '.id')
-          curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/orgs/aprendagithub/actions/secrets/ISSUE_SECRET/repositories/$repoid
+          repoid=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/repos/github-mao-na-massa/${{ steps.participante.outputs.idparticipante }}-desafio-2 | jq '.id')
+          curl -X PUT -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GH_ORG_TOKEN }}" https://api.github.com/orgs/github-mao-na-massa/actions/secrets/ISSUE_SECRET/repositories/$repoid
 
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
@@ -56,7 +56,7 @@ jobs:
         run: |
           git config --global user.name 'Julio Arruda'
           git config --global user.email 'julio.arruda@outlook.com'
-          git clone git@github.com:aprendagithub/desafio-2.git
+          git clone git@github.com:github-mao-na-massa/desafio-2.git
           cd desafio-2
           rm -rf .git          
           localpath=$(pwd)
@@ -67,7 +67,7 @@ jobs:
         run: |
           git config --global user.name 'Julio Arruda'
           git config --global user.email 'julio.arruda@outlook.com'
-          git clone git@github.com:aprendagithub/${{ steps.participante.outputs.idparticipante }}-desafio-2.git
+          git clone git@github.com:github-mao-na-massa/${{ steps.participante.outputs.idparticipante }}-desafio-2.git
           
           cd ${{ steps.participante.outputs.idparticipante }}-desafio-2
           localpath=$(pwd)
@@ -93,7 +93,7 @@ jobs:
         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
-            @${{ steps.participante.outputs.idparticipante }} Repositório Criado: https://github.com/aprendagithub/${{ steps.participante.outputs.idparticipante }}-desafio-2
+            @${{ steps.participante.outputs.idparticipante }} Repositório Criado: https://github.com/github-mao-na-massa/${{ steps.participante.outputs.idparticipante }}-desafio-2
 
       - name: Close Issue
         uses: peter-evans/close-issue@v2
